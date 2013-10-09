@@ -17,17 +17,33 @@ public:
 	/*常用时间格式： 星期 月 日 时：分：秒 年*/
 	std::string Date();
 	/*格林威治时间*/
-	std::string GMDate();
+	//std::string GMDate();
+	void GMDate();
 	/*本地时间*/
-	std::string LocalDate();
-	
+	//std::string LocalDate();
+	void LocalDate();
+
+	int GetYear();
+	int GetMonth();
+	int GetDay();
+	int GetWeekDay();
+	int GetHour();
+	int GetMinute();
+	int GetSecond();
+
 	double operator-(const CKTime& time);
 	CKTime& operator=(const CKTime& time);
 
 private:
 	time_t m_time;
+	int    m_year;
+	int	   m_month;
+	int	   m_day;
+	int    m_wday;
+	int	   m_hour;
+	int	   m_min;
+	int	   m_sec;
 };
-
 
 /*
 1.GetTickCount:头文件windows.h, 得到的是系统运行的时间，精确到毫秒。

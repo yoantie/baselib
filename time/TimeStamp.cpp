@@ -15,6 +15,8 @@ CTimeStamp::~CTimeStamp(void)
 {
 }
 
+//Offset between 15-Oct-1582 and 1-Jan-70
+//为什么单位是100ns
 CTimeStamp CTimeStamp::FromUTCTime(UTCTimeVal val)
 {
 	val -= (TimeDiff(0x01b21dd2) << 32) + 0x13814000;
@@ -52,7 +54,7 @@ void CTimeStamp::Update()
 
 	ULARGE_INTEGER epoch;			//自1970.1.1算起
 	epoch.LowPart  = 0xD53E8000;
-	epoch.HighPart = 0x019DB1DE; 
+	epoch.HighPart = 0x019DB1DE;
 
 	ULARGE_INTEGER ts;
 	ts.LowPart = ft.dwLowDateTime;
@@ -67,7 +69,7 @@ CTimeStamp CTimeStamp::FromFileTimeNP(unsigned int ftlow, unsigned int fthigh)
 	ULARGE_INTEGER epoch; // UNIX epoch (1970-01-01 00:00:00) expressed in Windows NT FILETIME
 	epoch.LowPart  = 0xD53E8000;
 	epoch.HighPart = 0x019DB1DE;
-	
+
 	ULARGE_INTEGER ts;
 	ts.LowPart  = ftlow;
 	ts.HighPart = fthigh;

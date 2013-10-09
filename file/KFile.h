@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TimeStamp.h"
+#include "..\time\TimeStamp.h"
 #include <windows.h>
 #include <string>
 #include <cassert>
