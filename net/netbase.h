@@ -33,3 +33,11 @@ unsigned long HostToInetAddr(const char* host)
 
 	return ip;
 }
+
+{ //gethostbyaddr 只能用于获取本机信息
+	char addr[] = "127.0.0.1";
+	DWORD daddr = inet_addr(addr);
+	int len = strlen(addr);
+	hostent* pNetHost;
+	pNetHost = gethostbyaddr((const char*)&daddr, 4, AF_INET);
+}
