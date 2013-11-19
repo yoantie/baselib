@@ -70,3 +70,9 @@ void rev_order(const BYTE *src, BYTE *dst, int size)
 		*dst-- = *src++;
 	}
 }
+
+inline int MulDiv(IN int nNumber, IN int nNumerator, IN int nDenominator)
+{
+	__int64 multiple = nNumber * nNumerator;
+	return static_cast<int>(multiple / nDenominator);
+}
