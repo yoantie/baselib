@@ -30,6 +30,7 @@ class CSimplePool
 	CMemPool* m_pool;
 	node_alloc* m_list;
 
+public:
 	void Destroy();
 
 public:

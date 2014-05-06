@@ -241,5 +241,5 @@ void CMemPool::FreeNode(MemNode* node)
 		node = freelist;
 		freelist = node->next;
 		free(node);
-	}
+	} 
 }

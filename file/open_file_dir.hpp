@@ -18,7 +18,7 @@ void OpenDirectory()
 	{
 		SHGetPathFromIDList(pIDList, Buffer);
 		std::wcout << Buffer << std::endl;
-		COTaskMemFree(pIDList);
+		CoTaskMemFree(pIDList);
 	}
 }
 
@@ -38,4 +38,44 @@ void OpenFile()
 	BOOL bSel = GetOpenFileName(&ofn);
 
 	std::wcout << szBuffer << std::endl;
+}
+
+
+#define BIF_NEWDIALOGSTYLE   0x40
+#define BIF_USENEWUI （BIF_NEWDIALOGSTYLE|BIF_EDITBOX）
+
+int CALLBACK BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
+{
+	if (uMsg == BFFM_INITIALIZED)
+	{
+		SendMessage(hwnd, BFFM_SETSELECTION, TRUE, lpData);
+	}
+
+	return 0;
+}
+
+
+void OpenDirWithNewFolderAbility()
+{
+	BROWSEINFO bi;
+	wchar_t Buffer[MAX_PATH];
+	bi.hwndOwner = NULL;
+	bi.pidlRoot = NULL;
+	bi.pszDisplayName = Buffer;
+	bi.lpszTitle = L"选择目标文件路劲";
+	bi.ulFlags = BIF_EDITBOX | BIF_NEWDIALOGSTYLE;
+	bi.lParam = 0;
+	bi.lpfn = BrowseCallbackProc;
+
+	LPITEMIDLIST pIDList = SHBrowseForFolder(&bi);
+	if (pIDList) {
+		SHGetPathFromIDList(pIDList, Buffer);
+
+		IMalloc* imalloc = 0;
+		if (SUCCEEDED(SHGetMalloc(&imalloc)))
+		{
+			imalloc->Free(pIDList);
+			imalloc->Release();
+		}
+	}
 }
