@@ -109,3 +109,25 @@ template <>
 size_t InternalStrlen<wchar_t>(const wchar_t* str) {
   return ::wcslen(str);
 }
+
+TCHAR* squish(TCHAR* src)
+{
+	TCHAR* cp = 0;
+	if (src == 0)
+		return 0;
+
+	for (cp = src + _tcslen(src) - 1;
+		 cp != src;
+		 --cp)
+	{
+		if (!isspace(*cp))
+			break;
+	}
+
+	cp[1] = '\0';
+
+	for (cp = src; isspace(*cp); ++cp)
+		continue;
+
+	return cp;
+}
