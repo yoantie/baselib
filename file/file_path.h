@@ -93,3 +93,15 @@ void ForcePathToFname(const char *org_path, char *target_fname)
 	}
 	else wsprintf(target_fname, "(unknown)");
 }
+
+void GetPath()
+{
+	ITEMIDLIST *pidl;
+	SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
+	TCHAR progPath[MAX_PATH];
+	SHGetPathFromIDList(pidl, progPath);
+
+	TCHAR tempPath[MAX_PATH];
+	GetModuleFileName(NULL, tempPath, MAX_PATH);
+	::PathRemoveFileSpec(tempPath);
+}
